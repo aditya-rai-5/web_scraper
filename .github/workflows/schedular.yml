@@ -1,9 +1,7 @@
-name: Run IITI Scraper Every 7 Days
+name: Run IITI Scraper Manually
 
 on:
-  schedule:
-    - cron: '*/10 * * * *'  # Every 5 minutes
-  workflow_dispatch:
+  workflow_dispatch:  # Only run manually from GitHub Actions tab
 
 jobs:
   run-scraper:
@@ -23,7 +21,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ghostscript python3-tk
         pip install "camelot-py[cv]" beautifulsoup4 requests PyPDF2 pandas tqdm pathway
-
 
     - name: Run the scraper
       run: python scraper.py

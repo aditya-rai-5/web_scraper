@@ -26,8 +26,7 @@ jobs:
 
 
     - name: Run the scraper
-      run: python data/scraper.py
+      run: python scraper.py
 
     - name: Run the cleaner
-      run: python data/data_cleaner.py
-      
+      run: python data_cleaner.py

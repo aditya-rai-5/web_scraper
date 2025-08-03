@@ -30,3 +30,9 @@ jobs:
 
     - name: Run the cleaner
       run: python data/data_cleaner.py
+
+    - name: Upload final CSV
+      uses: actions/upload-artifact@v3
+      with:
+        name: integrated-data
+        path: final_integrated_data.csv

@@ -460,11 +460,8 @@ def run_until_all_scraped(input_csv: str, output_csv: str):
     logger.info(f"{'='*50}")
 
 def process_zip_file(zip_path: str, destination_dir: str):
-    """
-    Extracts all files from a ZIP archive and saves them to a destination directory.
-    """
     if not os.path.exists(zip_path):
-        print(f"Error: ZIP file not found at {zip_path}")
+        logger.warning(f"ZIP file not found at {zip_path}, skipping.")
         return
 
     if not os.path.exists(destination_dir):

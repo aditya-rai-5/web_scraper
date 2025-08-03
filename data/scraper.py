@@ -482,7 +482,7 @@ def main():
     """
     web_input_csv = "url_list.csv"
     web_output_csv = "output_data.csv"
-    local_zip_path = "EMAIL_PDFs.zip"
+    local_zip_path = "data.zip"
     local_data_dir = "local_data"
     final_output_csv = "final_integrated_data.csv"
 

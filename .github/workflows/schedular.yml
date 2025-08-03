@@ -1,32 +1,66 @@
-name: Run IITI Scraper Every 7 Days
+# name: Run IITI Scraper Every 7 Days
+
+# on:
+#   schedule:
+#     - cron: '*/10 * * * *'  # Every 5 minutes
+#   workflow_dispatch:
+
+# jobs:
+#   run-scraper:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout Repository
+#       uses: actions/checkout@v3
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v4
+#       with:
+#         python-version: '3.10'
+
+#     - name: Install Python dependencies
+#       run: |
+#         sudo apt-get update
+#         sudo apt-get install -y ghostscript python3-tk
+#         pip install "camelot-py[cv]" beautifulsoup4 requests PyPDF2 pandas tqdm pathway
+
+
+#     - name: Run the scraper
+#       run: python scraper.py
+
+#     - name: Run the cleaner
+#       run: python data_cleaner.py
+
+name: Run Scraper
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Every 5 minutes
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 jobs:
-  run-scraper:
+  build-and-run:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install Python dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ghostscript python3-tk
-        pip install "camelot-py[cv]" beautifulsoup4 requests PyPDF2 pandas tqdm pathway
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
+      - name: Execute scraper
+        run: python scraper.py
 
-    - name: Run the scraper
-      run: python scraper.py
+      - name: List workspace files
+        run: ls -R .
 
-    - name: Run the cleaner
-      run: python data_cleaner.py
+      - name: Upload final output CSV
+        uses: actions/upload-artifact@v3
+        with:
+          name: integrated-data
+          path: final_integrated_data.csv
